@@ -1,2 +1,2 @@
 # softfound
-software foundation updates
+software foundation readings and practices

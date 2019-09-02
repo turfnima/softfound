@@ -197,17 +197,31 @@ Proof.
 Theorem mult_0_r : forall n:nat,
   n * 0 = 0.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros n.
+  induction n.
+  - simpl. reflexivity.
+  - simpl.apply IHn. Qed.
+  
 
 Theorem plus_n_Sm : forall n m : nat,
   S (n + m) = n + (S m).
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction n.
+  - simpl. reflexivity.
+  - simpl. rewrite -> IHn. reflexivity. Qed.
 
 Theorem plus_comm : forall n m : nat,
   n + m = m + n.
 Proof.
-  (* FILL IN HERE *) Admitted.
+  intros.
+  induction n.
+  -simpl.
+   induction m.
+   +simpl. reflexivity.
+   +simpl. rewrite <- IHm. reflexivity.
+  -simpl. rewrite -> IHn. apply plus_n_Sm. Qed.
+
 
 Theorem plus_assoc : forall n m p : nat,
   n + (m + p) = (n + m) + p.
@@ -226,9 +240,19 @@ Fixpoint double (n:nat) :=
   end.
 
 (** Use induction to prove this simple fact about [double]: *)
+Fixpoint addc (n m: nat) :=
+  match n with
+  | O => m
+  | S n' => S (addc n' m)
+  end.
+
 
 Lemma double_plus : forall n, double n = n + n .
 Proof.
+  intros.
+  induction n.
+  -simpl. reflexivity.
+  -simpl. rewrite -> IHn. rewrite plus_n_Sm. reflexivity. Qed.
   (* FILL IN HERE *) Admitted.
 (** [] *)
 
